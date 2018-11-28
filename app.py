@@ -97,9 +97,14 @@ def handle_message(event):
     elif city[2] == "縣":
         url = "City"
     if city in city_chinese:
-	    target = city
+	    for i in range(22):
+            if city == city_chinese[i]
+                target = i
+                break
         content = weather(city_english[target], url)
         message = TextSendMessage(text=content)
+    else:
+        message = TextSendMessage(text="請輸入正確縣市名稱")
 
 @handler.add(MessageEvent, message=StickerMessage)	
 def handle_sticker_message(event):
