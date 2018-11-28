@@ -92,7 +92,7 @@ def handle_message(event):
     print("event.message.text:", event.message.text)
     city = ""
     url = ""
-    text = event.message.text.strip()
+    city = event.message.text.strip()
     if city[2] == "市":
         url = "County"
     elif city[2] == "縣":
