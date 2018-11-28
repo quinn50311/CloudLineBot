@@ -105,6 +105,7 @@ def handle_message(event):
         message = TextSendMessage(text=content)
     else:
         message = TextSendMessage(text="請輸入正確縣市名稱")
+    line_bot_api.reply_message(event.reply_token, message)
 
 @handler.add(MessageEvent, message=StickerMessage)	
 def handle_sticker_message(event):
