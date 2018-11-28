@@ -98,7 +98,7 @@ def handle_message(event):
         url = "City"
     if city in city_chinese:
 	    for i in range(22):
-            if city == city_chinese[i]
+            if city == city_chinese[i]:
                 target = i
                 break
         content = weather(city_english[target], url)
