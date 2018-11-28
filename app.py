@@ -1,6 +1,11 @@
 import random
 import configparser
 import os
+
+import requests
+import sys
+from bs4 import BeautifulSoup
+
 from flask import Flask, request, abort
 from linebot import (
     LineBotApi, WebhookHandler
@@ -13,10 +18,14 @@ from linebot.models import *
 app = Flask(__name__)
 config = configparser.ConfigParser()
 config.read("config.ini")
-#87
+
 # config
 line_bot_api = LineBotApi(config['line_bot']['Channel_Access_Token'])
 handler = WebhookHandler(config['line_bot']['Channel_Secret'])
+
+# weather_convert
+city_chinese = ["基隆市", "臺北市", "新北市", "桃園市", "新竹市", "新竹縣", "苗栗縣", "臺中市", "彰化縣", "南投縣", "雲林縣", "嘉義市", "嘉義縣", "宜蘭縣", "花蓮縣", "臺東縣", "臺南市", "高雄市", "屏東縣", "連江縣", "金門縣", "澎湖縣"]
+city_english = ["Keelung", "Taipei", "New_Taipei", "Taoyuan", "Hsinchu", "Hsinchu", "Miaoli", "Taichung", "Changhua", "Nantou", "Yunlin", "Chiayi", "Chiayi", "Yilan", "Hualien", "Taitung", "Tainan", "Kaohsiung", "Pingtung", "Lienchiang", "Kinmen", "Penghu"]
 
 
 # 監聽所有來自 /callback 的 Post Request
@@ -37,15 +46,62 @@ def callback():
     return 'OK'
 
 
+def weather(city, url):
+    #for i in range(22):
+    #if city == city_chinese[i] and city[2] == "市":
+      #url = 'https://www.cwb.gov.tw/V7/forecast/taiwan/' + city_english[i] + '_City.htm'
+      #break
+    #elif city == city_chinese[i] and city[2] == "縣":
+      #url = 'https://www.cwb.gov.tw/V7/forecast/taiwan/' + city_english[i] + '_County.htm'
+      #break
+    content = ""
+    target_url = 'https://www.cwb.gov.tw/V7/forecast/taiwan/' + city + '_' + url + '.htm'
+    
+
+    #向中央氣象局發一個url的request
+    r = requests.get(url)
+    #把中文亂碼轉正常中文
+    r.encoding = 'UTF-8'
+    # 確認是否下載成功
+    if r.status_code == requests.codes.ok:
+      # 以 BeautifulSoup 解析 HTML 原始碼
+      soup = BeautifulSoup(r.text, 'html.parser')
+
+      #抓收到的所有跟th、td有關的html資料
+      date_tags = soup.find_all("th")
+      temp_tag = soup.find_all("td")
+      content = date_tags[5].get_text() + " " + temp_tag[0].get_text() + "℃" + " 降雨機率: " + temp_tag[3].get_text()
+      # content = [date_tags[5].get_text() + " " + temp_tag[0].get_text() + "℃" + " 降雨機率: " + temp_tag[3].get_text()
+                 # , date_tags[6].get_text() + " " + temp_tag[4].get_text() + "℃" + " 降雨機率: " + temp_tag[7].get_text()
+                 # , date_tags[7].get_text() + " " + temp_tag[8].get_text() + "℃" + " 降雨機率: " + temp_tag[11].get_text()]
+    return content
+      #print(date_tags[5].get_text() + " " + temp_tag[0].get_text() + "℃" + " 降雨機率: " + temp_tag[3].get_text())
+      #print(date_tags[6].get_text() + " " + temp_tag[4].get_text() + "℃" + " 降雨機率: " + temp_tag[7].get_text())
+      #print(date_tags[7].get_text() + " " + temp_tag[8].get_text() + "℃" + " 降雨機率: " + temp_tag[11].get_text())
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     print("event.reply_token:", event.reply_token)
     print("event.message.text:", event.message.text)
     message = TextSendMessage(text=event.message.text)
-    line_bot_api.reply_message(event.reply_token, message)
-
+    line_bot_api.reply_message(event.reply_token, message)	
 
 @handler.add(MessageEvent, message=StickerMessage)
+def handle_message(event):
+    city = ""
+    url = ""
+    text = event.message.text.strip()
+    city = text.split()	
+    if city[2] == "市":
+        url = "County"
+    elif city[2] == "縣":
+        url = "City"
+    if city in city_chinese:
+	    target = city
+        content = weather(city_english[target], url)
+        message = TextSendMessage(text=content)
+
+@handler.add(MessageEvent, message=StickerMessage)	
 def handle_sticker_message(event):
     print("package_id:", event.message.package_id)
     print("sticker_id:", event.message.sticker_id)
