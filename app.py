@@ -59,7 +59,7 @@ def weather(city, url):
     
 
     #向中央氣象局發一個url的request
-    r = requests.get(url)
+    r = requests.get(target_url)
     #把中文亂碼轉正常中文
     r.encoding = 'UTF-8'
     # 確認是否下載成功
@@ -101,8 +101,8 @@ def handle_message(event):
         for i in range(22):
             if city == city_chinese[i]:
                 target = i
-                print("target、city、url:", target, city, url)
                 content = weather(city_english[target], url)
+                #print(content)
                 message = TextSendMessage(text=content)
                 break
     else:
