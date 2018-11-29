@@ -86,35 +86,53 @@ def weather(city, url):
     return content
 
 
-# @handler.add(MessageEvent, message=TextMessage)
-# def handle_message(event):
-    # print("event.reply_token:", event.reply_token)
-    # print("event.message.text:", event.message.text)
-    # message = TextSendMessage(text=event.message.text)
-    # line_bot_api.reply_message(event.reply_token, message)	
+@handler.add(MessageEvent, message=TextMessage)
+def handle_message(event):
+    print("event.reply_token:", event.reply_token)
+    print("event.message.text:", event.message.text)
+    message = TextSendMessage(text=event.message.text)
+    line_bot_api.reply_message(event.reply_token, message)	
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     print("event.reply_token:", event.reply_token)
     print("event.message.text:", event.message.text)
+    cmd = ""
+    argv1 = ""
+    argv2 = ""
     city = ""
     url = ""
-    city = event.message.text.strip()
-    if city[2] == "市":
-        url = "City"
-    elif city[2] == "縣":
-        url = "County"
-    if city in city_chinese:
-        for i in range(22):
-            if city == city_chinese[i]:
-                target = i
-                content = weather(city_english[target], url)
-                #print(content)
-                message = TextSendMessage(text=content)
-                break
-    else:
-        message = TextSendMessage(text="請輸入正確縣市名稱")
-    line_bot_api.reply_message(event.reply_token, message)
+    text = event.message.text.strip()
+    cmd = text.split()[0]
+    if len(text.split()) == 2:
+        argv1 = text.split()[1]
+    elif len(text.split()) == 3:
+        argv1 == text.split()[1]
+        argv2 == text.split()[2]
+
+    if cmd == "天氣":
+        city = argv1.strip()
+        if city[2] == "市" and city[0] == "台":
+            city[0] = "臺"
+            url = "City"
+        elif city[2] == "縣" and city[0] == "台":
+            city[0] = "臺"
+			url = "County"
+        elif city[2] == "市":
+            url = "City"
+        elif city[2] == "縣":
+            url = "County"
+
+        if city in city_chinese:
+            for i in range(22):
+                if city == city_chinese[i]:
+                    target = i
+                    content = weather(city_english[target], url)
+                    message = TextSendMessage(text=content)
+                    break
+        else:
+            message = TextSendMessage(text="請輸入正確縣市名稱")
+        line_bot_api.reply_message(event.reply_token, message)
 
 @handler.add(MessageEvent, message=StickerMessage)	
 def handle_sticker_message(event):
