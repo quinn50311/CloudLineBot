@@ -94,9 +94,9 @@ def handle_message(event):
     url = ""
     city = event.message.text.strip()
     if city[2] == "市":
-        url = "County"
-    elif city[2] == "縣":
         url = "City"
+    elif city[2] == "縣":
+        url = "County"
     if city in city_chinese:
         for i in range(22):
             if city == city_chinese[i]:
