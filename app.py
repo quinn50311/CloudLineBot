@@ -70,14 +70,21 @@ def weather(city, url):
       #抓收到的所有跟th、td有關的html資料
       date_tags = soup.find_all("th")
       temp_tag = soup.find_all("td")
-      content = date_tags[5].get_text() + " " + temp_tag[0].get_text() + "℃" + " 降雨機率: " + temp_tag[3].get_text()
-      # content = [date_tags[5].get_text() + " " + temp_tag[0].get_text() + "℃" + " 降雨機率: " + temp_tag[3].get_text()
-                 # , date_tags[6].get_text() + " " + temp_tag[4].get_text() + "℃" + " 降雨機率: " + temp_tag[7].get_text()
-                 # , date_tags[7].get_text() + " " + temp_tag[8].get_text() + "℃" + " 降雨機率: " + temp_tag[11].get_text()]
+      content = (date_tags[5].get_text().split(' ', 1)[0] + "\n" 
+                 + date_tags[5].get_text().split(' ', 1)[1] + "\n" 
+                 + "溫度:" + temp_tag[0].get_text() + "℃" + "\n" 
+                 + "降雨機率:" + temp_tag[3].get_text() + "\n\n" 
+                 + date_tags[6].get_text().split(' ', 1)[0] + "\n"
+                 + date_tags[6].get_text().split(' ', 1)[1] + "\n" 
+                 + "溫度:" + temp_tag[4].get_text() + "℃" + "\n" 
+                 + "降雨機率:" + temp_tag[7].get_text() + "\n\n" 
+                 + date_tags[7].get_text().split(' ', 1)[0] + "\n" 
+                 + date_tags[7].get_text().split(' ', 1)[1] + "\n" 
+                 + "溫度:" + temp_tag[8].get_text() + "℃" + "\n" 
+                 + "降雨機率: " + temp_tag[11].get_text())
+
     return content
-      #print(date_tags[5].get_text() + " " + temp_tag[0].get_text() + "℃" + " 降雨機率: " + temp_tag[3].get_text())
-      #print(date_tags[6].get_text() + " " + temp_tag[4].get_text() + "℃" + " 降雨機率: " + temp_tag[7].get_text())
-      #print(date_tags[7].get_text() + " " + temp_tag[8].get_text() + "℃" + " 降雨機率: " + temp_tag[11].get_text())
+
 
 # @handler.add(MessageEvent, message=TextMessage)
 # def handle_message(event):
