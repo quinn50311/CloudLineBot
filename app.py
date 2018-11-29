@@ -101,9 +101,9 @@ def handle_message(event):
         for i in range(22):
             if city == city_chinese[i]:
                 target = i
+                content = weather(city_english[target], url)
+                message = TextSendMessage(text=content)
                 break
-        content = weather(city_english[target], url)
-        message = TextSendMessage(text=content)
     else:
         message = TextSendMessage(text="請輸入正確縣市名稱")
     line_bot_api.reply_message(event.reply_token, message)
