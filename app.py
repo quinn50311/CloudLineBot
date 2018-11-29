@@ -101,6 +101,7 @@ def handle_message(event):
         for i in range(22):
             if city == city_chinese[i]:
                 target = i
+                print("target、city、url:", target, city, url)
                 content = weather(city_english[target], url)
                 message = TextSendMessage(text=content)
                 break
