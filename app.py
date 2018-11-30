@@ -154,7 +154,7 @@ def handle_message(event):
     elif cmd in Train:
         train_stop1 = argv1.strip()
         train_stop2 = argv2.strip()
-        print(train_stop1)
+        print('test:' + train_stop1)
         content = train_time(train_stop1, train_stop2)
         message = TextSendMessage(text=content)
 
