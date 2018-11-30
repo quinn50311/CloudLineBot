@@ -2,6 +2,7 @@ import random
 import configparser
 import os
 
+import datetime
 import requests
 import sys
 from bs4 import BeautifulSoup
@@ -26,7 +27,8 @@ handler = WebhookHandler(config['line_bot']['Channel_Secret'])
 # weather_convert
 city_chinese = ["基隆市", "臺北市", "新北市", "桃園市", "新竹市", "新竹縣", "苗栗縣", "臺中市", "彰化縣", "南投縣", "雲林縣", "嘉義市", "嘉義縣", "宜蘭縣", "花蓮縣", "臺東縣", "臺南市", "高雄市", "屏東縣", "連江縣", "金門縣", "澎湖縣"]
 city_english = ["Keelung", "Taipei", "New_Taipei", "Taoyuan", "Hsinchu", "Hsinchu", "Miaoli", "Taichung", "Changhua", "Nantou", "Yunlin", "Chiayi", "Chiayi", "Yilan", "Hualien", "Taitung", "Tainan", "Kaohsiung", "Pingtung", "Lienchiang", "Kinmen", "Penghu"]
-
+Weather = ["天氣", "氣象", "weather"]
+Train = ["時刻表", "火車時刻表"]
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
@@ -47,13 +49,6 @@ def callback():
 
 
 def weather(city, url):
-    #for i in range(22):
-    #if city == city_chinese[i] and city[2] == "市":
-      #url = 'https://www.cwb.gov.tw/V7/forecast/taiwan/' + city_english[i] + '_City.htm'
-      #break
-    #elif city == city_chinese[i] and city[2] == "縣":
-      #url = 'https://www.cwb.gov.tw/V7/forecast/taiwan/' + city_english[i] + '_County.htm'
-      #break
     content = ""
     target_url = 'https://www.cwb.gov.tw/V7/forecast/taiwan/' + city + '_' + url + '.htm'
     
@@ -85,7 +80,30 @@ def weather(city, url):
 
     return content
 
-
+def train_time(train_stop1, train_stop2):
+    content = ""
+    target_url = "https://tw.piliapp.com/%E5%8F%B0%E9%90%B5%E7%81%AB%E8%BB%8A%E6%99%82%E5%88%BB%E8%A1%A8/"
+    my_params = {'q': train_stop1 + ' ' + train_stop2}
+    r = requests.get(target_url, params = my_params)
+    r.encoding = 'UTF-8'
+    if r.status_code == requests.codes.ok:
+        soup = BeautifulSoup(r.text, 'html.parser')
+        time_tag = soup.find_all("td")
+        time = "05"
+        time1 = "06"
+        time_start = 4
+        name = " 車種" + "  開車 " + " " + "到達"
+        for i in range(0, len(time_tag), 10):
+            if time == str(time_tag[time_start])[4:6] or time1 == str(time_tag[time_start])[4:6]:
+                index = time_tag.index(time_tag[time_start])
+                if str(time_tag[index - 4])[6] != "<":
+                    all = str(time_tag[index - 4])[4:7] + " " + str(time_tag[index])[4:9] + " " + str(time_tag[index + 1])[4:9]
+                else:
+                    all = str(time_tag[index - 4])[4:6] + "號" + " " + str(time_tag[index])[4:9] + " " + str(time_tag[index + 1])[4:9]
+                content = content + all + "\n"
+        time_start = time_start + 10
+    return content
+	
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     print("event.reply_token:", event.reply_token)
@@ -103,14 +121,14 @@ def handle_message(event):
     city = ""
     url = ""
     text = event.message.text.strip()
-    cmd = text.split()[0]
+    cmd = text.split()[0].lower()
     if len(text.split()) == 2:
         argv1 = text.split()[1]
     elif len(text.split()) == 3:
         argv1 == text.split()[1]
         argv2 == text.split()[2]
 
-    if cmd == "天氣":
+    if cmd in Weather:
         city = argv1.strip()
         if city[2] == "市" and city[0] == "台":
             city[0] = "臺"
@@ -132,7 +150,14 @@ def handle_message(event):
                     break
         else:
             message = TextSendMessage(text="請輸入正確縣市名稱")
-        line_bot_api.reply_message(event.reply_token, message)
+
+    elif cmd in Train:
+        train_stop1 = argv1.strip()
+        train_stop2 = argv2.strip()
+		content = train_time(train_stop1, train_stop2)
+		message = TextSendMessage(text=content)
+		
+    line_bot_api.reply_message(event.reply_token, message)
 
 @handler.add(MessageEvent, message=StickerMessage)	
 def handle_sticker_message(event):
