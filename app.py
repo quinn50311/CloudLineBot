@@ -120,6 +120,8 @@ def handle_message(event):
     argv2 = ""
     city = ""
     url = ""
+    train_stop1 = ""
+    train_stop2 = ""
     text = event.message.text.strip()
     cmd = text.split()[0].lower()
     if len(text.split()) == 2:
