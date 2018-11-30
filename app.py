@@ -93,6 +93,7 @@ def train_time(train_stop1, train_stop2):
         time1 = "06"
         time_start = 4
         name = " 車種" + "  開車 " + " " + "到達"
+		content = content + name + '\n'
         for i in range(4, len(time_tag), 10):
             if time == str(time_tag[time_start])[4:6] or time1 == str(time_tag[time_start])[4:6]:
                 index = time_tag.index(time_tag[time_start])
@@ -156,7 +157,6 @@ def handle_message(event):
     elif cmd in Train:
         train_stop1 = argv1.strip()
         train_stop2 = argv2.strip()
-        print('test:' + train_stop1)
         content = train_time(train_stop1, train_stop2)
         message = TextSendMessage(text=content)
 
