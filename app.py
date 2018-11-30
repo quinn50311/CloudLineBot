@@ -127,8 +127,8 @@ def handle_message(event):
     if len(text.split()) == 2:
         argv1 = text.split()[1]
     elif len(text.split()) == 3:
-        argv1 == text.split()[1]
-        argv2 == text.split()[2]
+        argv1 = text.split()[1]
+        argv2 = text.split()[2]
     print(cmd + ' ' + argv1 + '  ' + argv2)
     if cmd in Weather:
         city = argv1.strip()
