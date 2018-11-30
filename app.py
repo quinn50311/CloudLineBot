@@ -101,7 +101,7 @@ def train_time(train_stop1, train_stop2):
                 else:
                     all = str(time_tag[index - 4])[4:6] + "號" + " " + str(time_tag[index])[4:9] + " " + str(time_tag[index + 1])[4:9]
                 content = content + all + "\n"
-        time_start = time_start + 10
+            time_start = time_start + 10
     return content
 	
 @handler.add(MessageEvent, message=TextMessage)
