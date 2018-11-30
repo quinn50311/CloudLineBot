@@ -154,8 +154,8 @@ def handle_message(event):
     elif cmd in Train:
         train_stop1 = argv1.strip()
         train_stop2 = argv2.strip()
-		content = train_time(train_stop1, train_stop2)
-		message = TextSendMessage(text=content)
+        content = train_time(train_stop1, train_stop2)
+        message = TextSendMessage(text=content)
 		
     line_bot_api.reply_message(event.reply_token, message)
 
