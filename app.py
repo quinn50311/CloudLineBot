@@ -98,7 +98,7 @@ def train_time(train_stop1, train_stop2):
         for i in range(4, len(time_tag), 10):
             if str(time) == str(time_tag[time_start])[4:6] or str(time1) == str(time_tag[time_start])[4:6]:
                 index = time_tag.index(time_tag[time_start])
-                print(index)
+                print(time_tag[time_start])
                 if str(time_tag[index - 4])[6] != "<":
                     all = str(time_tag[index - 4])[4:7] + " " + str(time_tag[index])[4:9] + " " + str(time_tag[index + 1])[4:9]
                 else:
