@@ -120,7 +120,8 @@ def train_time(train_stop1, train_stop2):
                         all = str(time_tag[index - 4])[4:6] + "號" + " " + str(time_tag[index])[4:9] + " " + str(time_tag[index + 1])[4:9]
                     content = content + all + "\n"
                 else:
-                    time_tag[index] = int(str(time_tag[index])[4:6]) - 1
+                    time_tag[index] = str(int(str(time_tag[index])[4:6]) - 1)
+                    time_start = time_start - 10
             time_start = time_start + 10
 
 
