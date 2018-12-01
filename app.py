@@ -89,13 +89,14 @@ def train_time(train_stop1, train_stop2):
     if r.status_code == requests.codes.ok:
         soup = BeautifulSoup(r.text, 'html.parser')
         time_tag = soup.find_all("td")
-        time = "05"
-        time1 = "06"
+        time = datetime.datetime.now()
+        time = int(time.hour) + 8
+        time1 = time + 1
         time_start = 4
         name = ' ' + "  車種" + "    開車 " + " 到達"   
         content = content + name + '\n'
         for i in range(4, len(time_tag), 10):
-            if time == str(time_tag[time_start])[4:6] or time1 == str(time_tag[time_start])[4:6]:
+            if str(time) == str(time_tag[time_start])[4:6] or str(time1) == str(time_tag[time_start])[4:6]:
                 index = time_tag.index(time_tag[time_start])
                 if str(time_tag[index - 4])[6] != "<":
                     all = str(time_tag[index - 4])[4:7] + " " + str(time_tag[index])[4:9] + " " + str(time_tag[index + 1])[4:9]
@@ -104,13 +105,13 @@ def train_time(train_stop1, train_stop2):
                 content = content + all + "\n"
             time_start = time_start + 10
     return content
-	
+    
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     print("event.reply_token:", event.reply_token)
     print("event.message.text:", event.message.text)
     message = TextSendMessage(text=event.message.text)
-    line_bot_api.reply_message(event.reply_token, message)	
+    line_bot_api.reply_message(event.reply_token, message)  
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -162,7 +163,7 @@ def handle_message(event):
 
     line_bot_api.reply_message(event.reply_token, message)
 
-@handler.add(MessageEvent, message=StickerMessage)	
+@handler.add(MessageEvent, message=StickerMessage)  
 def handle_sticker_message(event):
     print("package_id:", event.message.package_id)
     print("sticker_id:", event.message.sticker_id)
