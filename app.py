@@ -89,29 +89,14 @@ def train_time(train_stop1, train_stop2):
     if r.status_code == requests.codes.ok:
         soup = BeautifulSoup(r.text, 'html.parser')
         time_tag = soup.find_all("td")
-        #time = datetime.datetime.now()
-        #time = int(time.hour) + 8
-        #time1 = time + 1
+        time = datetime.datetime.now()
+        time = int(time.hour) + 8
+        time1 = time + 1
         time_start = 4
         name = ' ' + "  車種" + "    開車 " + " 到達"   
         content = content + name + '\n'
-        #for i in range(4, len(time_tag), 10):
-         #   if str(time) == str(time_tag[time_start])[4:6] or str(time1) == str(time_tag[time_start])[4:6]:
-          #      index = time_tag.index(time_tag[time_start])
-           #     if (index - 4) % 10 == 0:
-            #        if str(time_tag[index - 4])[6] != "<":
-             #           all = str(time_tag[index - 4])[4:7] + " " + str(time_tag[index])[4:9] + " " + str(time_tag[index + 1])[4:9]
-              #      else:
-               #         all = str(time_tag[index - 4])[4:6] + "號" + " " + str(time_tag[index])[4:9] + " " + str(time_tag[index + 1])[4:9]
-                #    content = content + all + "\n"
-                #else:
-                 #   time_tag[index] = int(str(time_tag[index])[4:6]) - 1
-            #time_start = time_start + 10
-
-        time = "14"
-        time1 = "15"
         for i in range(4, len(time_tag), 10):
-            if time == str(time_tag[time_start])[4:6] or time1 == str(time_tag[time_start])[4:6]:
+            if str(time) == str(time_tag[time_start])[4:6] or str(time1) == str(time_tag[time_start])[4:6]:
                 index = time_tag.index(time_tag[time_start])
                 if (index - 4) % 10 == 0:
                     if str(time_tag[index - 4])[6] != "<":
@@ -120,11 +105,9 @@ def train_time(train_stop1, train_stop2):
                         all = str(time_tag[index - 4])[4:6] + "號" + " " + str(time_tag[index])[4:9] + " " + str(time_tag[index + 1])[4:9]
                     content = content + all + "\n"
                 else:
-                    time_tag[index] = str(int(str(time_tag[index])[4:6]) - 1)
+                    time_tag[index] = int(str(time_tag[index])[4:6]) - 1
                     time_start = time_start - 10
             time_start = time_start + 10
-
-
     return content
     
 @handler.add(MessageEvent, message=TextMessage)
