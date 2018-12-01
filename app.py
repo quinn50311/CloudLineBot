@@ -95,6 +95,8 @@ def train_time(train_stop1, train_stop2):
         time_start = 4
         name = ' ' + "  車種" + "    開車 " + " 到達"   
         content = content + name + '\n'
+        temp = time_tag.index("<td>13:00</td>")
+        print(temp)
         for i in range(4, len(time_tag), 10):
             if str(time) == str(time_tag[time_start])[4:6] or str(time1) == str(time_tag[time_start])[4:6]:
                 index = time_tag.index(time_tag[time_start])
