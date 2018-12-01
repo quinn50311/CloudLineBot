@@ -90,7 +90,7 @@ def train_time(train_stop1, train_stop2):
         soup = BeautifulSoup(r.text, 'html.parser')
         time_tag = soup.find_all("td")
         time = datetime.datetime.now()
-		time1 = int(time.hour) + 1
+        time1 = int(time.hour) + 1
         time_start = 4
         name = ' ' + "  車種" + "    開車 " + " 到達"   
         content = content + name + '\n'
