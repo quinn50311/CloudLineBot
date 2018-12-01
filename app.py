@@ -89,13 +89,13 @@ def train_time(train_stop1, train_stop2):
     if r.status_code == requests.codes.ok:
         soup = BeautifulSoup(r.text, 'html.parser')
         time_tag = soup.find_all("td")
-        time = "05"
-        time1 = "06"
+        time = datetime.datetime.now()
+		time1 = int(time.hour) + 1
         time_start = 4
         name = ' ' + "  車種" + "    開車 " + " 到達"   
         content = content + name + '\n'
         for i in range(4, len(time_tag), 10):
-            if time == str(time_tag[time_start])[4:6] or time1 == str(time_tag[time_start])[4:6]:
+            if str(time.hour) == str(time_tag[time_start])[4:6] or str(time1) == str(time_tag[time_start])[4:6]:
                 index = time_tag.index(time_tag[time_start])
                 if str(time_tag[index - 4])[6] != "<":
                     all = str(time_tag[index - 4])[4:7] + " " + str(time_tag[index])[4:9] + " " + str(time_tag[index + 1])[4:9]
