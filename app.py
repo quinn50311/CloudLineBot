@@ -28,7 +28,7 @@ handler = WebhookHandler(config['line_bot']['Channel_Secret'])
 city_chinese = ["基隆市", "臺北市", "新北市", "桃園市", "新竹市", "新竹縣", "苗栗縣", "臺中市", "彰化縣", "南投縣", "雲林縣", "嘉義市", "嘉義縣", "宜蘭縣", "花蓮縣", "臺東縣", "臺南市", "高雄市", "屏東縣", "連江縣", "金門縣", "澎湖縣"]
 city_english = ["Keelung", "Taipei", "New_Taipei", "Taoyuan", "Hsinchu", "Hsinchu", "Miaoli", "Taichung", "Changhua", "Nantou", "Yunlin", "Chiayi", "Chiayi", "Yilan", "Hualien", "Taitung", "Tainan", "Kaohsiung", "Pingtung", "Lienchiang", "Kinmen", "Penghu"]
 Weather = ["天氣", "氣象", "weather"]
-Train = ["時刻表", "火車時刻表"]
+Train = ["時刻表", "火車時刻表", "火車"]
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
