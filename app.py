@@ -109,13 +109,7 @@ def train_time(train_stop1, train_stop2):
                     time_start = time_start - 10
             time_start = time_start + 10
     return content
-    
-@handler.add(MessageEvent, message=TextMessage)
-def handle_message(event):
-    print("event.reply_token:", event.reply_token)
-    print("event.message.text:", event.message.text)
-    message = TextSendMessage(text=event.message.text)
-    line_bot_api.reply_message(event.reply_token, message)  
+ 
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
