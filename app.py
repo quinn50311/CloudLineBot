@@ -161,9 +161,9 @@ def handle_message(event):
         content = train_time(train_stop1, train_stop2)
         message = TextSendMessage(text=content)
 		
-	elif cmd == "功能":
-		content = "輸入天氣 縣市就可以看天氣唷~"
-		message = TextSendMessage(text=content)
+    elif cmd == "功能":
+        content = "輸入天氣 縣市就可以看天氣唷~"
+        message = TextSendMessage(text=content)
 
     line_bot_api.reply_message(event.reply_token, message)
 
