@@ -124,11 +124,13 @@ def handle_message(event):
     train_stop2 = ""
     text = event.message.text.strip()
     cmd = text.split()[0].lower()
+	
     if len(text.split()) == 2:
         argv1 = text.split()[1]
     elif len(text.split()) == 3:
         argv1 = text.split()[1]
         argv2 = text.split()[2]
+		
     print(cmd + ' ' + argv1 + '  ' + argv2)
     if cmd in Weather:
         city = argv1.strip()
@@ -158,6 +160,10 @@ def handle_message(event):
         train_stop2 = argv2.strip()
         content = train_time(train_stop1, train_stop2)
         message = TextSendMessage(text=content)
+		
+	elif cmd == "功能":
+		content = "輸入天氣 縣市就可以看天氣唷~"
+		message = TextSendMessage(text=content)
 
     line_bot_api.reply_message(event.reply_token, message)
 
