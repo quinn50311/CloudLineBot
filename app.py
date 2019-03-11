@@ -179,8 +179,6 @@ def handle_sticker_message(event):
     sticker_message = StickerSendMessage(package_id='1', sticker_id=sticker_id)
     line_bot_api.reply_message(event.reply_token, sticker_message)   
 
-@handler.add(MessageEvent, message=StickerMessage)
-
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
