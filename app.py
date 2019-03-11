@@ -162,7 +162,7 @@ def handle_message(event):
         message = TextSendMessage(text=content)
 		
     elif cmd == "功能":
-        content = "輸入天氣 縣市就可以看天氣唷~"
+        content = "輸入(天氣 縣市)就可以看天氣唷~" + "\n" + "輸入(火車 起站 迄站)就可以查時刻表喔(不過需要直達車!!!)"
         message = TextSendMessage(text=content)
 
     line_bot_api.reply_message(event.reply_token, message)
