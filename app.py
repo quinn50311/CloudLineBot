@@ -30,7 +30,6 @@ city_chinese = ["基隆市", "臺北市", "新北市", "桃園市", "新竹市",
 city_english = ["Keelung", "Taipei", "New_Taipei", "Taoyuan", "Hsinchu", "Hsinchu", "Miaoli", "Taichung", "Changhua", "Nantou", "Yunlin", "Chiayi", "Chiayi", "Yilan", "Hualien", "Taitung", "Tainan", "Kaohsiung", "Pingtung", "Lienchiang", "Kinmen", "Penghu"]
 Weather = ["天氣", "氣象", "weather"]
 Train = ["時刻表", "火車時刻表", "火車"]
-User_id = "1"
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
@@ -112,7 +111,6 @@ def train_time(train_stop1, train_stop2):
             time_start = time_start + 10
     return content
  
-    line_bot_api.push_message(User_id, TextSendMessage(text="推播測式喔"))
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     print("event.reply_token:", event.reply_token)
@@ -126,11 +124,6 @@ def handle_message(event):
     train_stop2 = ""
     text = event.message.text.strip()
     cmd = text.split()[0].lower()
-
-    #get user id
-    user_id = event.source.user_id
-    User_id = user_id
-    print("user_id =", User_id)
 
     if len(text.split()) == 2:
         argv1 = text.split()[1]
@@ -185,6 +178,8 @@ def handle_sticker_message(event):
     sticker_id = str(sticker_ids[index_id])
     sticker_message = StickerSendMessage(package_id='1', sticker_id=sticker_id)
     line_bot_api.reply_message(event.reply_token, sticker_message)   
+
+@handler.add(MessageEvent, message=StickerMessage)
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
