@@ -130,11 +130,6 @@ def handle_message(event):
     user_id = event.source.user_id
     print("user_id =", user_id)
 
-try:
-	line_bot_api.push_message(user_id, TextSendMessage(text="推播測喔"))
-except LineBotApiError as e:
-	raise e
-	
     if len(text.split()) == 2:
         argv1 = text.split()[1]
     elif len(text.split()) == 3:
@@ -176,6 +171,7 @@ except LineBotApiError as e:
         message = TextSendMessage(text=content)
 
     line_bot_api.reply_message(event.reply_token, message)
+    line_bot_api.push_message(user_id, TextSendMessage(text="推播測喔"))
 
 @handler.add(MessageEvent, message=StickerMessage)  
 def handle_sticker_message(event):
