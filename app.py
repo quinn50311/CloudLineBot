@@ -124,6 +124,9 @@ def handle_message(event):
     train_stop2 = ""
     text = event.message.text.strip()
     cmd = text.split()[0].lower()
+
+    user_id = event.source.user_id
+    print("user_id =", user_id)
 	
     if len(text.split()) == 2:
         argv1 = text.split()[1]
@@ -177,7 +180,7 @@ def handle_sticker_message(event):
     index_id = random.randint(0, len(sticker_ids) - 1)
     sticker_id = str(sticker_ids[index_id])
     sticker_message = StickerSendMessage(package_id='1', sticker_id=sticker_id)
-    line_bot_api.reply_message(event.reply_token, sticker_message)
+    line_bot_api.reply_message(event.reply_token, sticker_message)   
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
