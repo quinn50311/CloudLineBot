@@ -117,7 +117,7 @@ def time_counter():
 	tStart = time.time()
 	time.sleep(2)
 	tEnd = time.time()
-	return line_bot_api.push_message(User_id, "Hello!!!")
+	return line_bot_api.push_message(User_id, TextSendMessage(text='Hi'))
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -177,6 +177,8 @@ def handle_message(event):
         message = TextSendMessage(text=content)
 
     line_bot_api.reply_message(event.reply_token, message)
+    time.sleep(2)
+    print("123")
     time_counter()
 
 @handler.add(MessageEvent, message=StickerMessage)  
