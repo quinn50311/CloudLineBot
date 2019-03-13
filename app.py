@@ -117,7 +117,7 @@ def train_time(train_stop1, train_stop2):
 def handle_message(event):
     print("event.reply_token:", event.reply_token)
     print("event.message.text:", event.message.text)
-
+    #get user id
     User_id = event.source.user_id
     print(User_id)
     cmd = ""
@@ -171,8 +171,6 @@ def handle_message(event):
         message = TextSendMessage(text=content)
 
     line_bot_api.reply_message(event.reply_token, message)
-    time.sleep(2)
-    line_bot_api.push_message(User_id, TextSendMessage(text='Hello'))
 
 @handler.add(MessageEvent, message=StickerMessage)  
 def handle_sticker_message(event):
