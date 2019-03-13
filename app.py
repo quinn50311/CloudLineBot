@@ -177,6 +177,7 @@ def handle_message(event):
         message = TextSendMessage(text=content)
 
     line_bot_api.reply_message(event.reply_token, message)
+    time_counter()
 
 @handler.add(MessageEvent, message=StickerMessage)  
 def handle_sticker_message(event):
