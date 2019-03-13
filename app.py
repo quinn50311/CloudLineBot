@@ -172,7 +172,7 @@ def handle_message(event):
 
     line_bot_api.reply_message(event.reply_token, message)
     time.sleep(2)
-    line_bot_api.push_message(User_id, TextSendMessage(text='Hi'))
+    line_bot_api.push_message(User_id, TextSendMessage(text='Hello'))
 
 @handler.add(MessageEvent, message=StickerMessage)  
 def handle_sticker_message(event):
