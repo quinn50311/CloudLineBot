@@ -112,12 +112,6 @@ def train_time(train_stop1, train_stop2):
                     time_start = time_start - 10
             time_start = time_start + 10
     return content
- 
-def time_counter():
-	tStart = time.time()
-	time.sleep(2)
-	tEnd = time.time()
-	return line_bot_api.push_message(User_id, TextSendMessage(text='Hi'))
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -178,8 +172,7 @@ def handle_message(event):
 
     line_bot_api.reply_message(event.reply_token, message)
     time.sleep(2)
-    print("123")
-    time_counter()
+    line_bot_api.push_message(User_id, TextSendMessage(text='Hi'))
 
 @handler.add(MessageEvent, message=StickerMessage)  
 def handle_sticker_message(event):
