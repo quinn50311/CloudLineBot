@@ -124,7 +124,7 @@ def handle_message(event):
     print("event.reply_token:", event.reply_token)
     print("event.message.text:", event.message.text)
 
-    User_id = event.user_id
+    User_id = event.source.user_id
     print(User_id)
     cmd = ""
     argv1 = ""
