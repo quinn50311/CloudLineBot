@@ -147,16 +147,10 @@ def get_urls(html):
 			cursor = page_info['end_cursor']
 			flag = page_info['has_next_page']
 			for edge in edges:
-				if edge['node']['is_video']:
-					video_url = edge['node']['video_url']
-					if video_url:
-						print(video_url)
-						urls.append(video_url)
-				else:
-					if edge['node']['display_url']:
-						display_url = edge['node']['display_url']
-						#print(display_url)
-						urls.append(display_url)
+				if edge['node']['display_url']:
+					display_url = edge['node']['display_url']
+					#print(display_url)
+					urls.append(display_url)
 			#print(cursor, flag)
 	for i in range(5):
 		URLs = URLs + urls[i] + "\n" + "\n"
