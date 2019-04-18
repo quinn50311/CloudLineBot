@@ -31,6 +31,7 @@ city_chinese = ["基隆市", "臺北市", "新北市", "桃園市", "新竹市",
 city_english = ["Keelung", "Taipei", "New_Taipei", "Taoyuan", "Hsinchu", "Hsinchu", "Miaoli", "Taichung", "Changhua", "Nantou", "Yunlin", "Chiayi", "Chiayi", "Yilan", "Hualien", "Taitung", "Tainan", "Kaohsiung", "Pingtung", "Lienchiang", "Kinmen", "Penghu"]
 Weather = ["天氣", "氣象", "weather"]
 Train = ["時刻表", "火車時刻表", "火車"]
+ig = ["Instagram", "instagram", "IG", "ig", "Ig", "iG"]
 User_id = "1"
 
 # 監聽所有來自 /callback 的 Post Request
@@ -113,6 +114,37 @@ def train_time(train_stop1, train_stop2):
             time_start = time_start + 10
     return content
 
+def get_html(url):
+	try:
+		response = requests.get(url, headers=headers)
+		if response.status_code == 200:
+			return response.text
+		else:
+			print('請求錯誤狀態碼:', response.status_code)
+	except Exception as e:
+			print(e)
+			return None
+
+
+def get_urls(html):
+	urls = []
+	doc = pq(html)
+	items = doc('script[type="text/javascript"]').items()
+	for item in items:
+		if item.text().strip().startswith('window._sharedData'):
+			js_data = json.loads(item.text()[21:-1], encoding='utf-8')
+			edges = js_data["entry_data"]["ProfilePage"][0]["graphql"]["user"]["edge_owner_to_timeline_media"]["edges"]
+			page_info = js_data["entry_data"]["ProfilePage"][0]["graphql"]["user"]["edge_owner_to_timeline_media"]["page_info"]
+			cursor = page_info['end_cursor']
+			flag = page_info['has_next_page']
+			for edge in edges:
+				if edge['node']['display_url']:
+					display_url = edge['node']['display_url']
+					print(display_url)
+					urls.append(display_url)
+			#print(cursor, flag)
+	return urls
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     print("event.reply_token:", event.reply_token)
@@ -127,6 +159,8 @@ def handle_message(event):
     url = ""
     train_stop1 = ""
     train_stop2 = ""
+    URL_base = "https://www.instagram.com/"
+    URL = ""
     text = event.message.text.strip()
     cmd = text.split()[0].lower()
 
@@ -169,6 +203,12 @@ def handle_message(event):
     elif cmd == "功能":
         content = "輸入(天氣 縣市)就可以看天氣唷~" + "\n" + "輸入(火車 起站 迄站)就可以查時刻表喔(不過需要直達車!!!)"
         message = TextSendMessage(text=content)
+
+    elif cmd in ig:
+    	URL = URL_base + argv1.strip() + "/"
+        html = get_html(URL)
+        URLs = get_urls(html)
+        message = TextSendMessage(text=URLs)
 
     line_bot_api.reply_message(event.reply_token, message)
 
