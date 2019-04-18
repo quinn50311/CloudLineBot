@@ -148,7 +148,7 @@ def get_urls(html):
 			for edge in edges:
 				if edge['node']['display_url']:
 					display_url = edge['node']['display_url']
-					urls = display_url + "\n"
+					urls = urls + display_url + "\n"
 					#print(display_url)
 					#urls.append(display_url)
 			#print(cursor, flag)
