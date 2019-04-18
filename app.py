@@ -150,12 +150,12 @@ def get_urls(html):
 				if edge['node']['is_video']:
 					video_url = edge['node']['video_url']
 					if video_url:
-						#print(video_url)
+						print(video_url)
 						urls.append(video_url)
 				else:
 					if edge['node']['display_url']:
 						display_url = edge['node']['display_url']
-						#print(display_url)
+						print(display_url)
 						urls.append(display_url)
 			#print(cursor, flag)
 	for i in range(5):
