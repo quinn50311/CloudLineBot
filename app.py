@@ -152,7 +152,7 @@ def get_urls(html):
 					#print(display_url)
 					urls.append(display_url)
 			#print(cursor, flag)
-	for i in range(12):
+	for i in range(5):
 		URLs = URLs + urls[i] + "\n"
 	return URLs
 
@@ -220,6 +220,7 @@ def handle_message(event):
         html = get_html(URL)
         URLs = get_urls(html)
         message = TextSendMessage(text=URLs)
+        print(message)
 
     line_bot_api.reply_message(event.reply_token, message)
 
