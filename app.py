@@ -1,6 +1,9 @@
 import random
 import configparser
 import os
+import re
+import json
+from pyquery import PyQuery as pq
 
 import datetime
 import requests
@@ -17,6 +20,11 @@ from linebot.exceptions import (
 )
 from linebot.models import *
 from linebot.models import TextSendMessage
+
+headers = {
+	'user-agent':'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Mobile Safari/537.36'
+	,'cookie':'mid=W7JKBgALAAFle1fo1DmXlbZrevRd; mcd=3; csrftoken=FAaVU2r9OH2eXDqXtOA5G497TPH1McQm; ds_user_id=1516703459; sessionid=1516703459%3AIAH4lVUMx8vtij%3A27; fbm_124024574287414=base_domain=.instagram.com; rur=FRC; shbid=15998; shbts=1555521409.487367; urlgen="{\"220.137.119.99\": 3462}:1hGwIw:jYKWxz6LdCVqAUcnBGCQJY5NBeo"' 
+}
 
 app = Flask(__name__)
 config = configparser.ConfigParser()
