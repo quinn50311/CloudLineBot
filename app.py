@@ -216,10 +216,10 @@ def handle_message(event):
         URL = URL_base + argv1.strip() + "/"
         html = get_html(URL)
         URLs = get_urls(html)
-        message = TextSendMessage(text=URLs)
+        message = TextSendMessage(text=URLs[0])
 
     line_bot_api.reply_message(event.reply_token, message)
-    line_bot_api.push_message(User_id, URLs[0])
+    #line_bot_api.push_message(User_id, URLs[0])
 
 
 @handler.add(MessageEvent, message=StickerMessage)  
