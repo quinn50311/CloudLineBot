@@ -153,7 +153,7 @@ def get_urls(html):
 					urls.append(display_url)
 			#print(cursor, flag)
 	for i in range(5):
-		URLs = URLs + urls[i] + "\n"
+		URLs = URLs + urls[i] + "\n" + "\n"
 	return URLs
 
 @handler.add(MessageEvent, message=TextMessage)
