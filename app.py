@@ -148,7 +148,7 @@ def get_urls(html):
 			for edge in edges:
 				if edge['node']['display_url']:
 					display_url = edge['node']['display_url']
-					print(display_url)
+					#print(display_url)
 					urls.append(display_url)
 			#print(cursor, flag)
 	return urls
@@ -217,8 +217,11 @@ def handle_message(event):
         html = get_html(URL)
         URLs = get_urls(html)
         message = TextSendMessage(text=URLs)
+        line_bot_api.push_message(User_id, URLs[0])
+        line_bot_api.push_message(User_id, URLs[1])
 
     line_bot_api.reply_message(event.reply_token, message)
+
 
 @handler.add(MessageEvent, message=StickerMessage)  
 def handle_sticker_message(event):
