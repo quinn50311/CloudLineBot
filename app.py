@@ -3,7 +3,6 @@ import configparser
 import os
 import re
 import json
-from pyquery import PyQuery as pq
 
 import datetime
 import requests
@@ -20,6 +19,7 @@ from linebot.exceptions import (
 )
 from linebot.models import *
 from linebot.models import TextSendMessage
+from pyquery import PyQuery as pq
 
 headers = {
 	'user-agent':'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Mobile Safari/537.36'
