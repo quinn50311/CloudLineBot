@@ -3,7 +3,7 @@ import configparser
 import os
 import re
 import json
-from pyquery import PyQuery as pq 
+from pyquery import PyQuery as pq
 
 import datetime
 import requests
