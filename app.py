@@ -135,7 +135,8 @@ def get_html(url):
 
 
 def get_urls(html):
-	urls = ""
+	urls = []
+	URLs = ""
 	doc = pq(html)
 	items = doc('script[type="text/javascript"]').items()
 	for item in items:
@@ -148,11 +149,12 @@ def get_urls(html):
 			for edge in edges:
 				if edge['node']['display_url']:
 					display_url = edge['node']['display_url']
-					urls = urls + display_url + "\n"
 					#print(display_url)
-					#urls.append(display_url)
+					urls.append(display_url)
 			#print(cursor, flag)
-	return urls
+	for i in 12:
+		URLs = URLs + urls[i] + "\n"
+	return URLs
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
