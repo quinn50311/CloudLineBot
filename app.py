@@ -212,7 +212,7 @@ def handle_message(event):
         message = TextSendMessage(text=content)
 		
     elif cmd == "功能":
-        content = "輸入(天氣 縣市)就可以看天氣唷~" + "\n" + "輸入(火車 起站 迄站)就可以查時刻表喔(不過需要直達車!!!)"
+        content = "輸入(天氣 縣市)就可以看天氣唷~" + "\n" + "輸入(火車 起站 迄站)就可以查時刻表喔(不過需要直達車!!!)" + "\n" + "輸入(ig 用戶ID)就可以看到該用戶最新的五篇文章唷~"
         message = TextSendMessage(text=content)
 
     elif cmd in ig:
@@ -220,7 +220,6 @@ def handle_message(event):
         html = get_html(URL)
         URLs = get_urls(html)
         message = TextSendMessage(text=URLs)
-        print(message)
 
     line_bot_api.reply_message(event.reply_token, message)
 
