@@ -152,7 +152,7 @@ def get_urls(html):
 					#print(display_url)
 					urls.append(display_url)
 			#print(cursor, flag)
-	for i in 12:
+	for i in range(12):
 		URLs = URLs + urls[i] + "\n"
 	return URLs
 
