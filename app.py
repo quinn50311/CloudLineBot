@@ -135,7 +135,7 @@ def get_html(url):
 
 
 def get_urls(html):
-	urls = []
+	urls = ""
 	doc = pq(html)
 	items = doc('script[type="text/javascript"]').items()
 	for item in items:
@@ -148,8 +148,9 @@ def get_urls(html):
 			for edge in edges:
 				if edge['node']['display_url']:
 					display_url = edge['node']['display_url']
+					urls = display_url + "\n"
 					#print(display_url)
-					urls.append(display_url)
+					#urls.append(display_url)
 			#print(cursor, flag)
 	return urls
 
@@ -216,10 +217,9 @@ def handle_message(event):
         URL = URL_base + argv1.strip() + "/"
         html = get_html(URL)
         URLs = get_urls(html)
-        message = TextSendMessage(text=URLs[0])
+        message = TextSendMessage(text=URLs)
 
     line_bot_api.reply_message(event.reply_token, message)
-    #line_bot_api.push_message(User_id, URLs[0])
 
 
 @handler.add(MessageEvent, message=StickerMessage)  
