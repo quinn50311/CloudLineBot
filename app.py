@@ -147,8 +147,8 @@ def get_urls(html):
 			cursor = page_info['end_cursor']
 			flag = page_info['has_next_page']
 			for edge in edges:
-				if info['node']['is_video']:
-					video_url = info['node']['is_video']
+				if edge['node']['is_video']:
+					video_url = edge['node']['is_video']
 					if video_url:
 						#print(video_url)
 						urls.append(video_url)
