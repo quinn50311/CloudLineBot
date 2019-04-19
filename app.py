@@ -150,7 +150,7 @@ def get_shortcode(html):
 			for edge in edges:
 				if edge['node']['shortcode']:
 					shortcode = edge['node']['shortcode']
-					print(shortcode)
+					#print(shortcode)
 					shortcodes.append(shortcode)
 	return shortcodes
 
@@ -177,9 +177,11 @@ def get_img(shortcodes):
 				if js_data['data']['shortcode_media']['is_video']:
 					video_url = js_data['data']['shortcode_media']['video_url']
 					urls.append(video_url)
+					print("OK")
 				else:
 					display_url = js_data['data']['shortcode_media']['display_url']
 					urls.append(display_url)
+					print("OK")
 #			print("OK")
 			#time.sleep(2 + float(random.randint(1, 800))/200)
 		except:
