@@ -250,10 +250,8 @@ def handle_message(event):
     elif cmd in ig:
         URL = URL_base + argv1.strip() + "/"
         html = get_html(URL)
-        shortcodes = get_urls(html)
-        print(shortcodes)
+        shortcodes = get_shortcode(html)
         imgs = get_img(shortcodes)
-        print(imgs)
         message = TextSendMessage(text=URLs)
 
     line_bot_api.reply_message(event.reply_token, message)
