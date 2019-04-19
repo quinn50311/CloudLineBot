@@ -135,6 +135,17 @@ def get_html(url):
 			print(e)
 			return None
 
+def get_json(url):
+	try:
+		response = requests.get(url, headers = headers, timeout = 10)
+		if response.status_code == 200:
+			return response.json()
+		else:
+			print("請求json錯誤，錯誤狀態碼: ", response.status_code)
+	except Exception as e:
+		print(e)
+		time.sleep(60 + float(random.randint(1, 4000))/100)
+		return get_json(url)
 
 def get_shortcode(html):
 	shortcodes = []
