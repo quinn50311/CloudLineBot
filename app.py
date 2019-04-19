@@ -263,7 +263,7 @@ def handle_message(event):
         html = get_html(URL)
         shortcodes = get_shortcode(html)
         imgs = get_img(shortcodes)
-        message = TextSendMessage(text=URLs)
+        message = TextSendMessage(text=imgs)
 
     line_bot_api.reply_message(event.reply_token, message)
 
