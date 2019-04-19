@@ -21,6 +21,8 @@ from linebot.models import *
 from linebot.models import TextSendMessage
 from pyquery import PyQuery as pq
 
+uri_multi = "https://www.instagram.com/graphql/query/?query_hash=2cc8bfb89429345060d1212147913582&variables=%7B%22shortcode%22%3A%22{shortcode}%22%2C%22child_comment_count%22%3A3%2C%22fetch_comment_count%22%3A40%2C%22parent_comment_count%22%3A24%2C%22has_threaded_comments%22%3Afalse%7D"
+
 headers = {
 	'user-agent':'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Mobile Safari/537.36'
 	,'cookie':'mid=W7JKBgALAAFle1fo1DmXlbZrevRd; mcd=3; csrftoken=FAaVU2r9OH2eXDqXtOA5G497TPH1McQm; ds_user_id=1516703459; sessionid=1516703459%3AIAH4lVUMx8vtij%3A27; fbm_124024574287414=base_domain=.instagram.com; rur=FRC; shbid=15998; shbts=1555521409.487367; urlgen="{\"220.137.119.99\": 3462}:1hGwIw:jYKWxz6LdCVqAUcnBGCQJY5NBeo"' 
