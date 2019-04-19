@@ -147,6 +147,7 @@ def get_json(url):
 		time.sleep(60 + float(random.randint(1, 4000))/100)
 		return get_json(url)
 
+#抓IG上面前12篇文章的shortcode
 def get_shortcode(html):
 	shortcodes = []
 	doc = pq(html)
@@ -161,10 +162,10 @@ def get_shortcode(html):
 			for edge in edges:
 				if edge['node']['shortcode']:
 					shortcode = edge['node']['shortcode']
-					#print(shortcode)
 					shortcodes.append(shortcode)
 	return shortcodes
 
+#抓圖片或影片的url
 def get_img(shortcodes):
 	urls = []
 	URLs = ""
@@ -173,25 +174,12 @@ def get_img(shortcodes):
 		js_data = get_json(url)
 
 		try:
-#			if 'edge_sidecar_to_children' in js_data['data']['shortcode_media']:
-#				edges = js_data['data']['shortcode_media']['edge_sidecar_to_children']['edges']
-#				for edge in edges:
-#					if edge['node']['is_video']:
-#						video_url = edge['node']['video_url']
-#						if video_url:
-#							urls.append(video_url)
-#					else:
-#						if edge['node']['display_url']:
-#							display_url = edge['node']['display_url']
-#							urls.append(display_url)
-#			else:
-				if js_data['data']['shortcode_media']['is_video']:
-					video_url = js_data['data']['shortcode_media']['video_url']
-					urls.append(video_url)
-				else:
-					display_url = js_data['data']['shortcode_media']['display_url']
-					urls.append(display_url)
-#			print("OK")
+			if js_data['data']['shortcode_media']['is_video']:
+				video_url = js_data['data']['shortcode_media']['video_url']
+				urls.append(video_url)
+			else:
+				display_url = js_data['data']['shortcode_media']['display_url']
+				urls.append(display_url)
 			#time.sleep(2 + float(random.randint(1, 800))/200)
 		except:
 			print("異常")
