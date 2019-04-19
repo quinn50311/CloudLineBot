@@ -150,7 +150,7 @@ def get_shortcode(html):
 			for edge in edges:
 				if edge['node']['shortcode']:
 					shortcode = edge['node']['shortcode']
-					#print(shortcode)
+					print(shortcode)
 					shortcodes.append(shortcode)
 	return shortcodes
 
