@@ -134,9 +134,8 @@ def get_html(url):
 			return None
 
 
-def get_urls(html):
-	urls = []
-	URLs = ""
+def get_shortcode(html):
+	shortcodes = []
 	doc = pq(html)
 	items = doc('script[type="text/javascript"]').items()
 	for item in items:
@@ -147,13 +146,44 @@ def get_urls(html):
 			cursor = page_info['end_cursor']
 			flag = page_info['has_next_page']
 			for edge in edges:
-				if edge['node']['display_url']:
-					display_url = edge['node']['display_url']
-					#print(display_url)
+				if edge['node']['shortcode']:
+					shortcode = edge['node']['shortcode']
+					#print(shortcode)
+					shortcodes.append(shortcode)
+	return shortcodes
+
+def get_img(shortcodes):
+	urls = []
+	URLs = ""
+	for shortcode in shortcodes:
+		url = uri_multi.format(shortcode=shortcode)
+		js_data = get_json(url)
+
+		try:
+#			if 'edge_sidecar_to_children' in js_data['data']['shortcode_media']:
+#				edges = js_data['data']['shortcode_media']['edge_sidecar_to_children']['edges']
+#				for edge in edges:
+#					if edge['node']['is_video']:
+#						video_url = edge['node']['video_url']
+#						if video_url:
+#							urls.append(video_url)
+#					else:
+#						if edge['node']['display_url']:
+#							display_url = edge['node']['display_url']
+#							urls.append(display_url)
+#			else:
+				if js_data['data']['shortcode_media']['is_video']:
+					video_url = js_data['data']['shortcode_media']['video_url']
+					urls.append(video_url)
+				else:
+					display_url = js_data['data']['shortcode_media']['display_url']
 					urls.append(display_url)
-			#print(cursor, flag)
+#			print("OK")
+			#time.sleep(2 + float(random.randint(1, 800))/200)
+		except:
+			print("異常")
 	for i in range(5):
-		URLs = URLs + urls[i] + "\n" + "\n"
+		URLs = URLs + urls + "\n" + "\n"
 	return URLs
 
 @handler.add(MessageEvent, message=TextMessage)
@@ -218,7 +248,8 @@ def handle_message(event):
     elif cmd in ig:
         URL = URL_base + argv1.strip() + "/"
         html = get_html(URL)
-        URLs = get_urls(html)
+        shortcodes = get_urls(html)
+        imgs = get_img(shortcodes)
         message = TextSendMessage(text=URLs)
 
     line_bot_api.reply_message(event.reply_token, message)
