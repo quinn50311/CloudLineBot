@@ -128,7 +128,6 @@ def get_html(url):
 	try:
 		response = requests.get(url, headers=headers)
 		if response.status_code == 200:
-			print(response.text)
 			return response.text
 		else:
 			print('請求錯誤狀態碼:', response.status_code)
