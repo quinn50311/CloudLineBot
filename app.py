@@ -187,11 +187,6 @@ def get_img(shortcodes):
 		URLs = URLs + urls[i] + "\n" + "\n"
 	return URLs
 
-def test():
-	time_now = time.strftime("%H:%M", time.localtime())
-	if time_now == time.strftime("%H:%M", time.localtime()):
-		line_bot_api.push_message('Uf29530dd7d8c1602d252ba3f8aa1e784', TextSendMessage(text='GoodJob!'))
-
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     print("event.reply_token:", event.reply_token)
@@ -257,12 +252,9 @@ def handle_message(event):
         shortcodes = get_shortcode(html)
         imgs = get_img(shortcodes)
         message = TextSendMessage(text=imgs)
-    else:
-    	test()
-
+    if time_now == time.strftime("%H:%M", time.localtime()):
+        line_bot_api.push_message('Uf29530dd7d8c1602d252ba3f8aa1e784', TextSendMessage(text='GoodJob!'))
     line_bot_api.reply_message(event.reply_token, message)
-    line_bot_api.push_message(User_id, TextSendMessage(text='nice'))
-
 
 @handler.add(MessageEvent, message=StickerMessage)  
 def handle_sticker_message(event):
