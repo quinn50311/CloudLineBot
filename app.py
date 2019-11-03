@@ -193,7 +193,7 @@ def handle_message(event):
     print("event.message.text:", event.message.text)
     #get user id
     User_id = event.source.user_id
-    print(User_id)
+    print(type(User_id))
     cmd = ""
     argv1 = ""
     argv2 = ""
@@ -254,10 +254,7 @@ def handle_message(event):
         message = TextSendMessage(text=imgs)
 
     line_bot_api.reply_message(event.reply_token, message)
-    try:
-        line_bot_api.push_message(User_id, TextSendMessage(text=nice))
-    except as e:
-        print(e)
+    line_bot_api.push_message(User_id, TextSendMessage(text=nice))
 
 
 @handler.add(MessageEvent, message=StickerMessage)  
