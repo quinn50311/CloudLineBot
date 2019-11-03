@@ -187,6 +187,11 @@ def get_img(shortcodes):
 		URLs = URLs + urls[i] + "\n" + "\n"
 	return URLs
 
+def test():
+	time_now = time.strftime("%H:%M", time.localtime())
+	if time_now == "23:08":
+		line_bot_api.push_message('Uf29530dd7d8c1602d252ba3f8aa1e784', TextSendMessage(text='GoodJob!'))
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     print("event.reply_token:", event.reply_token)
