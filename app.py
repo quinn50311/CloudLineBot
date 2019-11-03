@@ -256,7 +256,7 @@ def handle_message(event):
     line_bot_api.reply_message(event.reply_token, message)
     try:
         line_bot_api.push_message(User_id, TextSendMessage(text=nice))
-    except InvalidSignatureError as e:
+    except as e:
         print(e)
 
 
