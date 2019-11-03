@@ -254,7 +254,7 @@ def handle_message(event):
         message = TextSendMessage(text=imgs)
 
     line_bot_api.reply_message(event.reply_token, message)
-    line.push_message(User_id, "nice")
+    line_bot_api.push_message(User_id, "nice")
 
 
 @handler.add(MessageEvent, message=StickerMessage)  
