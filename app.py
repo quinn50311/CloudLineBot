@@ -254,7 +254,10 @@ def handle_message(event):
         message = TextSendMessage(text=imgs)
 
     line_bot_api.reply_message(event.reply_token, message)
-    line_bot_api.push_message(User_id, TextSendMessage(text=nice))
+    try:
+        line_bot_api.push_message(User_id, TextSendMessage(text=nice))
+    except InvalidSignatureError as e:
+        print e
 
 
 @handler.add(MessageEvent, message=StickerMessage)  
