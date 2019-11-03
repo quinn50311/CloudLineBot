@@ -57,6 +57,8 @@ def callback():
     # handle webhook body
     try:
         handler.handle(body, signature)
+        if time_now == time.strftime("%H:%M", time.localtime()):
+            line_bot_api.push_message('Uf29530dd7d8c1602d252ba3f8aa1e784', TextSendMessage(text='GoodJob!'))
     except:
         print("something wrong")
     return 'OK'
@@ -252,8 +254,7 @@ def handle_message(event):
         shortcodes = get_shortcode(html)
         imgs = get_img(shortcodes)
         message = TextSendMessage(text=imgs)
-    if time_now == time.strftime("%H:%M", time.localtime()):
-        line_bot_api.push_message('Uf29530dd7d8c1602d252ba3f8aa1e784', TextSendMessage(text='GoodJob!'))
+
     line_bot_api.reply_message(event.reply_token, message)
 
 @handler.add(MessageEvent, message=StickerMessage)  
