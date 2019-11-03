@@ -189,7 +189,7 @@ def get_img(shortcodes):
 
 def test():
 	time_now = time.strftime("%H:%M", time.localtime())
-	if time_now == "23:11":
+	if time_now == time.strftime("%H:%M", time.localtime()):
 		line_bot_api.push_message('Uf29530dd7d8c1602d252ba3f8aa1e784', TextSendMessage(text='GoodJob!'))
 
 @handler.add(MessageEvent, message=TextMessage)
@@ -257,6 +257,8 @@ def handle_message(event):
         shortcodes = get_shortcode(html)
         imgs = get_img(shortcodes)
         message = TextSendMessage(text=imgs)
+    else:
+    	test()
 
     line_bot_api.reply_message(event.reply_token, message)
     line_bot_api.push_message(User_id, TextSendMessage(text='nice'))
@@ -277,4 +279,3 @@ def handle_sticker_message(event):
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
-    test()
