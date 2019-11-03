@@ -253,7 +253,7 @@ def handle_message(event):
         imgs = get_img(shortcodes)
         message = TextSendMessage(text=imgs)
 
-    line_bot_api.push_message(User_id, TextSendMessage(text=nice))
+    #line_bot_api.push_message(User_id, TextSendMessage(text=nice))
     line_bot_api.reply_message(event.reply_token, message)
 
 
