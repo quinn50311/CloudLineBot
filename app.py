@@ -183,7 +183,7 @@ def get_img(shortcodes):
 			#time.sleep(2 + float(random.randint(1, 800))/200)
 		except:
 			print("異常")
-	for i in range(5):
+	for i in range(10):
 		URLs = URLs + urls[i] + "\n" + "\n"
 	return URLs
 
