@@ -128,7 +128,6 @@ def get_html(url):
 	try:
 		response = requests.get(url, headers=headers)
 		if response.status_code == 200:
-			print("Response Text: ", response.text)
 			return response.text
 		else:
 			print('請求錯誤狀態碼:', response.status_code)
@@ -256,6 +255,7 @@ def handle_message(event):
         URL = URL_base + argv1.strip() + "/"
         html = get_html(URL)
         shortcodes = get_shortcode(html)
+        print(shortcodes)
         imgs = get_img(shortcodes)
         message = TextSendMessage(text=imgs)
 
