@@ -57,8 +57,6 @@ def callback():
     # handle webhook body
     try:
         handler.handle(body, signature)
-        if time_now == time.strftime("%H:%M", time.localtime()):
-            line_bot_api.push_message('Uf29530dd7d8c1602d252ba3f8aa1e784', TextSendMessage(text='GoodJob!'))
     except:
         print("something wrong")
     return 'OK'
@@ -189,6 +187,11 @@ def get_img(shortcodes):
 		URLs = URLs + urls[i] + "\n" + "\n"
 	return URLs
 
+#def test():
+	#time_now = time.strftime("%H:%M", time.localtime())
+	#if time_now == time.strftime("%H:%M", time.localtime()):
+		#line_bot_api.push_message('Uf29530dd7d8c1602d252ba3f8aa1e784', TextSendMessage(text='GoodJob!'))
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     print("event.reply_token:", event.reply_token)
@@ -214,7 +217,7 @@ def handle_message(event):
         argv1 = text.split()[1]
         argv2 = text.split()[2]
 		
-    print(cmd + ' ' + argv1 + '  ' + argv2)
+    print(cmd + ' ' + argv1 + ' ' + argv2)
     if cmd in Weather:
         city = argv1.strip()
         if city[2] == "市" and city[0] == "台":
