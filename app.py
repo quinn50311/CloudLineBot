@@ -255,7 +255,6 @@ def handle_message(event):
         URL = URL_base + argv1.strip() + "/"
         html = get_html(URL)
         shortcodes = get_shortcode(html)
-        print(shortcodes)
         imgs = get_img(shortcodes)
         message = TextSendMessage(text=imgs)
 
