@@ -128,6 +128,7 @@ def get_html(url):
 	try:
 		response = requests.get(url, headers=headers)
 		if response.status_code == 200:
+			print("Response Text: ", response.text)
 			return response.text
 		else:
 			print('請求錯誤狀態碼:', response.status_code)
@@ -183,7 +184,7 @@ def get_img(shortcodes):
 			#time.sleep(2 + float(random.randint(1, 800))/200)
 		except:
 			print("異常")
-	for i in range(10):
+	for i in range(5):
 		URLs = URLs + urls[i] + "\n" + "\n"
 	return URLs
 
