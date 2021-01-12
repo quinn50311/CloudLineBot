@@ -103,6 +103,7 @@ def train_time(train_stop1, train_stop2):
     if r.status_code == requests.codes.ok:
         soup = BeautifulSoup(r.text, 'html.parser')
         time_tag = soup.find_all("td")
+        print(time_tag)
         time = datetime.datetime.now()
         time = int(time.hour) + 8
         time1 = time + 1
